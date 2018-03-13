@@ -3,6 +3,7 @@ package br.com.rony.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,52 +11,44 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Banco implements Serializable{
+public class Cliente implements Serializable{
 
-	private static final long serialVersionUID = -6589534307839802677L;
-
+	private static final long serialVersionUID = 1059005464376904470L;
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+	private String cpf;
 	private String nome;
-	@OneToMany(mappedBy="banco")
-	private List<Agencia> agencias;
+	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL)
+	private List<Conta> contas;
 	
-	public Banco() {
+	public Cliente() {
+		// TODO Auto-generated constructor stub
 	}
-
-	public Banco(Long id, String nome) {
-		super();
-		this.id = id;
-		this.nome = nome;
-	}
-
+	
 	public Long getId() {
 		return id;
 	}
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
+	public String getCpf() {
+		return cpf;
+	}
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
 	public String getNome() {
 		return nome;
 	}
-
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
-	public List<Agencia> getAgencias() {
-		return agencias;
+	public List<Conta> getContas() {
+		return contas;
 	}
-
-	public void setAgencias(List<Agencia> agencias) {
-		this.agencias = agencias;
+	public void setContas(List<Conta> contas) {
+		this.contas = contas;
 	}
-
-	@Override
-	public String toString() {
-		return "Banco [id=" + id + ", nome=" + nome + "]";
-	}
+	
 	
 }
