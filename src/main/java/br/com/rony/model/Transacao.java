@@ -1,12 +1,15 @@
 package br.com.rony.model;
 
 import java.io.Serializable;
+import java.util.Calendar;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import br.com.rony.enums.TipoTransacao;
 
@@ -14,17 +17,26 @@ import br.com.rony.enums.TipoTransacao;
 public class Transacao implements Serializable{
 
 	private static final long serialVersionUID = 2283166381838671533L;
+	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+	
 	private TipoTransacao tipoTransacao;
+	
 	private Double valor;
+	
 	@ManyToOne
 	private Conta contaOrigem;
+	
 	@ManyToOne
 	private Conta contaDestino;
 	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar data;
+	
 	public Transacao() {
 		// TODO Auto-generated constructor stub
+		this.data = Calendar.getInstance();
 	}
 	
 	public Transacao(TipoTransacao tipoTransacao, Double valor, Conta contaOrigem, Conta contaDestino) {
@@ -33,6 +45,7 @@ public class Transacao implements Serializable{
 		this.valor = valor;
 		this.contaOrigem = contaOrigem;
 		this.contaDestino = contaDestino;
+		this.data = Calendar.getInstance();
 	}
 
 	public Long getId() {
@@ -64,6 +77,12 @@ public class Transacao implements Serializable{
 	}
 	public void setContaDestino(Conta contaDestino) {
 		this.contaDestino = contaDestino;
+	}
+	public Calendar getData() {
+		return data;
+	}
+	public void setData(Calendar data) {
+		this.data = data;
 	}
 	
 	

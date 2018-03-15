@@ -4,11 +4,13 @@
 package br.com.rony.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  * @author Rony
@@ -25,6 +27,9 @@ public class Agencia implements Serializable{
 	private String nome;
 	@ManyToOne
 	private Banco banco;
+	
+	@OneToMany(mappedBy="agencia")
+	private List<Cliente> clientes;
 	
 	public Agencia() {
 	}
@@ -58,6 +63,22 @@ public class Agencia implements Serializable{
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public Banco getBanco() {
+		return banco;
+	}
+
+	public void setBanco(Banco banco) {
+		this.banco = banco;
+	}
+
+	public List<Cliente> getClientes() {
+		return clientes;
+	}
+
+	public void setClientes(List<Cliente> clientes) {
+		this.clientes = clientes;
 	}
 
 	@Override
