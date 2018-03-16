@@ -36,7 +36,7 @@ public class BancoController extends BaseController {
 	@Post("")
 	public void cadastro(Banco banco) {
 		try {
-			if (banco != null && !banco.getNome().isEmpty()) {
+			if (banco != null && !banco.getNome().isEmpty() && !banco.getCodigo().isEmpty()) {
 				this.bancoDao.insert(banco);
 				addSucessMessage("Banco salvo com sucesso!");
 			}else {
