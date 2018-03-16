@@ -3,6 +3,8 @@
  */
 package br.com.rony.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import br.com.caelum.vraptor.Consumes;
@@ -48,7 +50,7 @@ public class ContaController extends BaseController {
 	}
 
 	/**
-	 * Método para cadastrar uma nova conta
+	 * Método para cadastrar uma nova conta. O número da conta é gerado pela API
 	 * 
 	 * @param conta
 	 */
@@ -102,8 +104,11 @@ public class ContaController extends BaseController {
 			Conta conta = contaDao.getCountByNumber(numero);
 			if (conta != null) {
 				// verifica se existem transações realizadas na conta
-				if (conta.getTransacoes().size() > 0) {
-					result.use(Results.json()).withoutRoot().from(conta.getTransacoes()).serialize();
+				List<Transacao> transacoes = transacaoDao.buscarTransacoesPorConta(conta.getId());
+				if (transacoes != null) {
+					result.use(Results.json()).withoutRoot().from(transacoes)
+							.include("contaOrigem", "contaDestino")
+							.serialize();
 				} else {
 					addSucessMessage("Não existem transações realizadas na conta!");
 					result.use(Results.json()).withoutRoot().from(messages).serialize();
@@ -237,7 +242,7 @@ public class ContaController extends BaseController {
 	public void transferenciaEntreBancos(String bancoOrigem, String origem, String bancoDestino, String destino,
 			Double valor) {
 		try {
-			
+
 			Conta contaOrigem = contaDao.getCountByNumberAndBank(origem, bancoOrigem);
 			Conta contaDestino = contaDao.getCountByNumberAndBank(destino, bancoDestino);
 			if (contaOrigem != null && contaDestino != null) {

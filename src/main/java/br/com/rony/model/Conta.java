@@ -1,14 +1,11 @@
 package br.com.rony.model;
 
-import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Conta {
@@ -26,9 +23,6 @@ public class Conta {
 	
 	@ManyToOne(cascade= {CascadeType.PERSIST,CascadeType.MERGE, CascadeType.REFRESH})
 	private Cliente cliente;
-	
-	@OneToMany
-	private List<Transacao> transacoes;
 	
 	public Conta() {
 		this.saldo = 0.0;
@@ -73,14 +67,6 @@ public class Conta {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
-	}
-
-	public List<Transacao> getTransacoes() {
-		return transacoes;
-	}
-
-	public void setTransacoes(List<Transacao> transacoes) {
-		this.transacoes = transacoes;
 	}
 
 	public Double getSaldo() {

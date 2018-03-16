@@ -1,0 +1,384 @@
+{
+	"info": {
+		"name": "Bank",
+		"_postman_id": "5243948f-ec7d-0279-90f8-e396db857651",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "salvarUsuario",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\":\"Ronyerison\",\r\n  \"username\":\"rony\",\r\n  \"password\":\"12345\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/bank-project/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bank-project",
+						"register"
+					]
+				},
+				"description": null
+			},
+			"response": []
+		},
+		{
+			"name": "salvarAgencia",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"banco\":{\n       \"nome\": \"Banco Tete!\"\n   }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/bank-project/banco",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bank-project",
+						"banco"
+					]
+				},
+				"description": null
+			},
+			"response": []
+		},
+		{
+			"name": "salvarCliente",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"cliente\":{\n\t\t\t\"nome\": \"Dona Maria\",\n\t\t\t\"cpf\": \"111.111.111-11\",\n\t\t\t\"agencia\": \"1\"\n\t\t}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/bank-project/cliente",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bank-project",
+						"cliente"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "extratoDeConta",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "C5C92F809D32F42A24A0BB82C17240BCC2A4ED2B5A766074AED7B29E10EECF07",
+							"type": "string"
+						},
+						{
+							"key": "tokenType",
+							"type": "any"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"numero\": \"1001-1\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/bank-project/conta/extrato",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bank-project",
+						"conta",
+						"extrato"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "depositoEmConta",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "C069CC3EC8F2F7D7DC7E060D39C88297EAFCA279DE1F4C36719323FA16D4CBF7",
+							"type": "string"
+						},
+						{
+							"key": "tokenType",
+							"type": "any"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"numero\": \"1001-1\",\n\t\"valor\": 330.35\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/bank-project/conta/deposito",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bank-project",
+						"conta",
+						"deposito"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "transferencia",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "C5C92F809D32F42A24A0BB82C17240BCC2A4ED2B5A766074AED7B29E10EECF07",
+							"type": "string"
+						},
+						{
+							"key": "tokenType",
+							"type": "any"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"origem\": \"1001-1\",\n\t\"destino\": \"1002-1\",\n\t\"valor\": 330.35\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/bank-project/conta/transferencia",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bank-project",
+						"conta",
+						"transferencia"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "saque",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "C069CC3EC8F2F7D7DC7E060D39C88297EAFCA279DE1F4C36719323FA16D4CBF7",
+							"type": "string"
+						},
+						{
+							"key": "tokenType",
+							"type": "any"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"numero\": \"1001-1\",\n\t\"valor\": 330.35\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/bank-project/conta/saque",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bank-project",
+						"conta",
+						"saque"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "salvarBanco",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"banco\": {\n    \t\"codigo\": \"2222\",\n    \t\"nome\": \"Banco 2\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/bank-project/banco",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bank-project",
+						"banco"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "transferenciaBancos",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "C069CC3EC8F2F7D7DC7E060D39C88297EAFCA279DE1F4C36719323FA16D4CBF7",
+							"type": "string"
+						},
+						{
+							"key": "tokenType",
+							"type": "any"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"origem\": \"1001-1\",\n\t\"destino\": \"1002-1\",\n\t\"valor\": 100\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/bank-project/conta/transferencia/bancos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bank-project",
+						"conta",
+						"transferencia",
+						"bancos"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

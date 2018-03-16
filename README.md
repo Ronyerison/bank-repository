@@ -14,3 +14,5 @@ CONFIGURANDO PROJETO
 1. O `servlet container` utilizado foi Tomcat 7.
 2. Banco de Dados utilizado `MySql`: criar esquema `bank`
 
+ENVIANDO REQUISIÇÕES PARA A API
+1. Para testes da API, utilizou-se o aplicativo POSTMAN. O arquivo `Bank.postman_collection.json`localizado na pasta RESOURCES do projeto contém uma coleção de requisições que podem ser utilizadas como modelos para testes na APIa
