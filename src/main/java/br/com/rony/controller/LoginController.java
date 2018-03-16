@@ -11,24 +11,39 @@ import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 
 import br.com.caelum.vraptor.Consumes;
 import br.com.caelum.vraptor.Controller;
+import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.serialization.gson.WithoutRoot;
 import br.com.caelum.vraptor.view.Results;
 import br.com.rony.dao.AuthDao;
-import br.com.rony.dao.UserDao;
+import br.com.rony.dao.ContaDao;
 import br.com.rony.model.Auth;
-import br.com.rony.model.User;
+import br.com.rony.model.Conta;
 
+/**
+ * Controlador de login da aplicação
+ * @author Rony
+ *
+ */
 @Controller
 @Path("/login")
 public class LoginController extends BaseController {
 
 	@Inject
 	private AuthDao authDao;
-	@Inject
-	private UserDao userDao;
 
+//	@Inject
+//	private UserDao userDao;
+
+	@Inject 
+	private ContaDao contaDao;
+	/**
+	 * Método que realiza o login na aplicação seguindo protocolo OAuth 2.0.
+	 * 
+	 * @param client_id - Número da conta do cliente
+	 * @param client_secret - Senha da conta do cliente
+	 */
 	@Consumes(value = {"application/x-www-form-urlencoded", "application/json"}, options = WithoutRoot.class)
 	@Post("")
 	public void save(String client_id, String client_secret) {
@@ -36,13 +51,13 @@ public class LoginController extends BaseController {
 		System.out.println(client_id);
 		System.out.println(client_secret);
 
-		User userExistent = this.userDao.findByUsernameAndPassword(client_id, client_secret);
+		Conta contaExistente = this.contaDao.findByNumberAndPassword(client_id, client_secret);
 
-		if (userExistent != null) {
+		if (contaExistente != null) {
 
 			// Caso exista autenticacao, irá deletar e criar uma nova
 
-			Auth auth = this.authDao.findByUser(userExistent);
+			Auth auth = this.authDao.findByConta(contaExistente);
 			if (auth != null) {
 				this.authDao.delete(auth);
 			}
@@ -63,7 +78,7 @@ public class LoginController extends BaseController {
 			String refresh_token = client_secret.concat(client_id.concat(dataDeHoje.toString()));
 
 			String client_id2 = dataDeHoje.toString()
-					.concat(client_id.concat(client_id.concat(client_secret.concat(userExistent.getId().toString()))));
+					.concat(client_id.concat(client_id.concat(client_secret.concat(contaExistente.getId().toString()))));
 
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(new Date());
@@ -78,7 +93,7 @@ public class LoginController extends BaseController {
 			newAuth.setExpires_at(expires_at);
 			newAuth.setRefresh_token(gerarHash(refresh_token));
 
-			newAuth.setUser(userExistent);
+			newAuth.setConta(contaExistente);
 
 			this.authDao.insert(newAuth);
 
@@ -88,6 +103,11 @@ public class LoginController extends BaseController {
 			this.result.use(Results.json()).withoutRoot().from("access_denied").serialize();
 		}
 
+	}
+	
+	@Get("/negado")
+	public void accessoNegado() {
+		this.result.use(Results.json()).withoutRoot().from("access_denied").serialize();
 	}
 
 	public String gerarHash(String input) {

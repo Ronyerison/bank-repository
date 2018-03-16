@@ -1,13 +1,16 @@
-# VRaptor blank project
+# Projeto API Banco
 
-This is a blank project to help you to use VRaptor. You can easily import in you IDE as Maven project.
+Este projeto simula a API de um banco. A API foi desenvolvida em java utilizando o framework VRaptor e contem as seguintes funcionalidades:
+ - Cadastro de um banco ou instituição financeira: esta funcionalidade por opção está aberta de autenticação para que possam ser realizados cadastros de instituição financeira.
+ - Cadastro de uma agencia: funcionalidade também aberta de autenticação para que sejam realizados os cadastros das agencias pertences aos bancos.
+ - Cadastro de clientes: funcionalidade aberta de autenticação para cadastro dos clientes dos bancos.
+ - Autenticação: a autenticação da API deve é necessária para realizar transações, ou seja, cada cliente do banco deverá se autenticar (passando número da conta e senha) para realizar operações na conta (Saques, Depositos, Transferencias). Autenticação de clientes segue protocolo OAuth 2.0.
+ - Contas: As operações permitidas em contas são: saques, depositos, transferencias entre contas do mesmo banco e transferencias entre contas de bancos diferentes.
+ 
+     
 
-Este é um projeto em branco para ajudar você a usar o VRaptor. Você pode facilmente importá-lo na sua IDE favorita como um projeto Maven.
+CONFIGURANDO PROJETO
 
-Após criar seu projeto você pode rodá-lo com um tomcat7 ou +:
+1. O `servlet container` utilizado foi Tomcat 7.
+2. Banco de Dados utilizado `MySql`: criar esquema `bank`
 
-```
-mvn tomcat7:run
-```
-
-Cuidado para *jamais* executar `mvn tomcat:run` pois ele usará um tomcat6 (incompatível).

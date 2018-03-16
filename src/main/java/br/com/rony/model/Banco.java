@@ -9,6 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+/**
+ * Classe modelo para representar um banco
+ * @author Rony
+ *
+ */
 @Entity
 public class Banco implements Serializable{
 
@@ -16,7 +21,11 @@ public class Banco implements Serializable{
 
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+	
 	private String nome;
+	
+	private String codigo;
+	
 	@OneToMany(mappedBy="banco")
 	private List<Agencia> agencias;
 	
@@ -27,6 +36,13 @@ public class Banco implements Serializable{
 		super();
 		this.id = id;
 		this.nome = nome;
+	}
+
+	public Banco(Long id, String nome, String codigo) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.codigo = codigo;
 	}
 
 	public Long getId() {
@@ -53,9 +69,18 @@ public class Banco implements Serializable{
 		this.agencias = agencias;
 	}
 
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
 	@Override
 	public String toString() {
-		return "Banco [id=" + id + ", nome=" + nome + "]";
+		return "Banco [id=" + id + ", nome=" + nome + ", codigo=" + codigo + "]";
 	}
+
 	
 }

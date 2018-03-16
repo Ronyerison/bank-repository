@@ -19,6 +19,7 @@ import br.com.rony.model.Conta;
 import br.com.rony.model.vo.ClienteVO;
 
 /**
+ * Controlador para gerenciar as requisições para clientes
  * @author Rony
  *
  */
@@ -39,34 +40,48 @@ public class ClienteController extends BaseController {
 		super();
 	}
 
+	/**
+	 * 
+	 * Método para cadastro de clientes 
+	 * @param cliente
+	 */
 	@Consumes(value = "application/json")
 	@Post("")
 	public void cadastro(ClienteVO cliente) {
+		
 		try {
-			// criando o objeto que será persistido
-			if (clienteDao.fincByCpf(cliente.getCpf()) == null) {
+			//verificando se os campos foram preenchidos
+			if (cliente.getCpf() == null || cliente.getAgencia() == null || cliente.getSenha() == null
+					|| cliente.getNome() == null) {
+				addWarningMessage("Campos devem ser preenchidos!");
+			} else {
+				// criando o objeto que será persistido
+				Cliente cliente1 = clienteDao.fincByCpf(cliente.getCpf());
+				if (cliente1 == null || cliente1.getAgencia().getId() != cliente.getAgencia()) {
 
-				Cliente clienteBD = new Cliente(cliente);
-				Agencia agencia = agenciaDao.find(cliente.getAgencia());
-				// verificando se a agencia existe
-				if (agencia != null) {
-					clienteBD.setAgencia(agencia);
+					Cliente clienteBD = new Cliente(cliente);
+					Agencia agencia = agenciaDao.find(cliente.getAgencia());
+					// verificando se a agencia existe
+					if (agencia != null) {
+						clienteBD.setAgencia(agencia);
 
-					// criando a conta do cliente
-					Conta conta = new Conta();
-					conta.setAgencia(agencia);
-					conta.setCliente(clienteBD);
-					Conta contaBD = this.contaDao.update(conta);
-					String numero = (1000 + contaBD.getId()) + "-" + contaBD.getAgencia().getId();
-					contaBD.setNumero(numero);
-					this.contaDao.update(contaBD);
-					addSucessMessage("Cliente salvo com sucesso!\n Numero da Conta: " + contaBD.getNumero());
+						// criando a conta do cliente
+						Conta conta = new Conta();
+						conta.setAgencia(agencia);
+						conta.setCliente(clienteBD);
+						conta.setSenha(cliente.getSenha());
+						Conta contaBD = this.contaDao.update(conta);
+						String numero = (1000 + contaBD.getId()) + "-" + contaBD.getAgencia().getId();
+						contaBD.setNumero(numero);
+						this.contaDao.update(contaBD);
+						addWarningMessage("Cliente salvo com sucesso!\n Numero da Conta: " + contaBD.getNumero());
 
+					} else {
+						addWarningMessage("Agencia não cadastrada!");
+					}
 				} else {
-					addErrorMessage("Agencia não cadastrada!");
+					addErrorMessage("Já existe cliente cadastrado com o CPF informado!");
 				}
-			}else {
-				addErrorMessage("Já existe cliente cadastrado com o CPF informado!");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -74,6 +89,5 @@ public class ClienteController extends BaseController {
 		}
 		result.use(Results.json()).withoutRoot().from(messages).serialize();
 	}
-	
-	
+
 }

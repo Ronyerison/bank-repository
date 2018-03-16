@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
 @Entity
 public class User implements Serializable {
@@ -20,8 +19,6 @@ public class User implements Serializable {
 	private String username;
 	private String password;
 
-	@OneToOne
-	private Auth auth;
 
 	public Integer getId() {
 		return this.id;
@@ -55,19 +52,6 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
-	public Auth getAuth() {
-		return auth;
-	}
-
-	public void setAuth(Auth auth) {
-		this.auth = auth;
-	}
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", username=" + username + ", password=" + password + ", auth="
-				+ auth + "]";
-	}
 	
 	
 }

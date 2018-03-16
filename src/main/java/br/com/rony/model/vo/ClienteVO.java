@@ -9,17 +9,19 @@ public class ClienteVO implements Serializable{
 	private String cpf;
 	private String nome;
 	private Long agencia;
+	private String senha;
 	
 	public ClienteVO() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public ClienteVO(Long id, String cpf, String nome, Long agencia) {
+	public ClienteVO(Long id, String cpf, String nome, Long agencia, String senha) {
 		super();
 		this.id = id;
 		this.cpf = cpf;
 		this.nome = nome;
 		this.agencia = agencia;
+		this.senha = senha;
 	}
 	public Long getId() {
 		return id;
@@ -45,6 +47,21 @@ public class ClienteVO implements Serializable{
 	public void setAgencia(Long agencia) {
 		this.agencia = agencia;
 	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	@Override
+	public String toString() {
+		return "ClienteVO [id=" + id + ", cpf=" + cpf + ", nome=" + nome + ", agencia=" + agencia + ", senha=" + senha
+				+ "]";
+	}
+	
 	
 	
 }

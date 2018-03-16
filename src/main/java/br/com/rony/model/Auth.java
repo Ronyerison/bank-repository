@@ -23,7 +23,7 @@ public class Auth implements Serializable{
     private Date expires_at;
     
     @OneToOne
-    private User user;
+    private Conta conta;
 
     public Integer getId()
     {
@@ -67,19 +67,18 @@ public class Auth implements Serializable{
 		this.expires_at = expires_at;
 	}
 
-	public User getUser() {
-		return user;
+	public Conta getConta() {
+		return conta;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setConta(Conta conta) {
+		this.conta = conta;
 	}
 
 	@Override
 	public String toString() {
 		return "Auth [id=" + id + ", client_id=" + client_id + ", refresh_token=" + refresh_token + ", access_token="
-				+ access_token + ", expires_at=" + expires_at + ", user=" + user + "]";
+				+ access_token + ", expires_at=" + expires_at + ", conta=" + conta + "]";
 	}
-	
-	
+
 }

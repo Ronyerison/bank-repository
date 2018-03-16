@@ -34,4 +34,27 @@ public class ContaDao extends GenericDao<Conta> {
 			return conta;
 		}
 	}
+
+	public Conta findByNumberAndPassword(String client_id, String client_secret) {
+
+		try {
+			Conta conta = entityManager
+					.createQuery("select u from Conta u where u.numero = :numero and u.senha = :senha", Conta.class)
+					.setParameter("numero", client_id).setParameter("senha", client_secret).getSingleResult();
+			return conta;
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+
+	public Conta getCountByNumberAndBank(String origem, String bancoOrigem) {
+		try {
+			Conta conta = entityManager
+					.createQuery("select u from Conta u where u.numero = :numero and u.agencia.banco.codigo = :bancoOrigem", Conta.class)
+					.setParameter("numero", origem).setParameter("bancoOrigem", bancoOrigem).getSingleResult();
+			return conta;
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
 }

@@ -10,26 +10,41 @@ import br.com.caelum.vraptor.view.Results;
 import br.com.rony.dao.BancoDao;
 import br.com.rony.model.Banco;
 
+/**
+ * Controlador para gerenciar as requisições para banco
+ * 
+ * @author Rony
+ *
+ */
 @Controller
 @Path("/banco")
-public class BancoController extends BaseController{
+public class BancoController extends BaseController {
 
 	@Inject
 	private BancoDao bancoDao;
-	
+
 	public BancoController() {
 		super();
 	}
-	
+
+	/**
+	 * Método para cadastrar um banco
+	 * 
+	 * @param banco
+	 */
 	@Consumes(value = "application/json")
 	@Post("")
 	public void cadastro(Banco banco) {
-		try{
-			this.bancoDao.insert(banco);
-			addSucessMessage("Banco salvo com sucesso!");
-		}catch (Exception e) {
+		try {
+			if (banco != null && !banco.getNome().isEmpty()) {
+				this.bancoDao.insert(banco);
+				addSucessMessage("Banco salvo com sucesso!");
+			}else {
+				addWarningMessage("Campos devem ser preenchidos!");
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
-			addErrorMessage("Problema ao Salvar Banco!");
+			addErrorMessage("Problema Interno!");
 		}
 		result.use(Results.json()).withoutRoot().from(messages).serialize();
 	}
